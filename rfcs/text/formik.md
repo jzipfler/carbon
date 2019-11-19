@@ -9,6 +9,9 @@
   - [Overview of Carbon's form and validation functionality](#overview-of-carbons-form-and-validation-functionality)
   - [Overview of Formik](#overview-of-formik)
     - [Form validation using Formik](#form-validation-using-formik)
+  - [Code examples](#code-examples)
+    - [Checkbox and CheckboxGroup](#checkbox-and-checkboxgroup)
+      - [HTML and React](#html-and-react)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -128,6 +131,50 @@ Formik supports three kinds of validation:
    validation using a [Yup](https://github.com/jquense/yup) schema.
 3. [**Field-level**](https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation)  –  Separate
    `validate()` functions are supplied for each form field.
+
+
+## Code examples
+
+### Checkbox and CheckboxGroup
+
+#### HTML and React
+
+As a reminder of the requirements and behaviour of a
+[native HTML checkbox element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox),
+it must always have a [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#htmlattrdefname)
+attribute (since this identifies the field within the form), but the
+[`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value) attribute is optional, and
+there can be multiple checkboxes with the same `name`:
+
+```jsx
+{/* When checked, this will submit `interest=on` */}
+<input type="checkbox" name="interest" />
+```
+
+```jsx
+{/* When checked, this will submit `interest=coding` */}
+<input type="checkbox" name="interest" value="coding" />
+```
+
+```jsx
+{/* If both are checked, this will submit `interest=coding&interest=music` */}
+<input type="checkbox" name="interest" value="coding" />
+<input type="checkbox" name="interest" value="music" />
+```
+
+To enable a checkbox to operate in controlled mode by React, the
+[`checked`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#checked) boolean attribute is used
+(**not** the `value` attribute, unlike most other React controlled components):
+
+```jsx
+<input type="checkbox" name="interest" value="coding" checked={isCodingChecked} />
+<input type="checkbox" name="interest" value="music"  checked={isMusicChecked}  />
+```
+
+The [`onChange`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onchange)
+and [`onBlur`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onblur) event handlers receive a
+React [`SyntheticEvent`](https://reactjs.org/docs/events.html) object `e`, and the `name` `value` `checked` attributes
+are available on `e.target`.
 
 
 # Drawbacks
