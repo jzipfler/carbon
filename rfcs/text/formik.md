@@ -1,6 +1,21 @@
 - Start Date: 2019-11-15
 
 
+# Table of contents
+
+- [Summary](#summary)
+- [Motivation](#motivation)
+- [Detailed design](#detailed-design)
+  - [Overview of Carbon's form and validation functionality](#overview-of-carbons-form-and-validation-functionality)
+  - [Overview of Formik](#overview-of-formik)
+    - [Form validation using Formik](#form-validation-using-formik)
+- [Drawbacks](#drawbacks)
+- [Alternatives](#alternatives)
+- [Adoption strategy](#adoption-strategy)
+- [How we teach this](#how-we-teach-this)
+- [Unresolved questions](#unresolved-questions)
+
+
 # Summary
 
 Consider replacing Carbon's form and validation functionality with Formik 2.0.
