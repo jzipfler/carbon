@@ -13,6 +13,7 @@
     - [Checkbox and CheckboxGroup](#checkbox-and-checkboxgroup)
       - [HTML and React](#html-and-react)
       - [Checkbox usage with Formik](#checkbox-usage-with-formik)
+      - [Validation examples](#validation-examples)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -208,6 +209,58 @@ To implement controlled mode, the `checked` prop must be set according to the `v
        value="coding"
        onChange={handleChange}
        checked={values.interest.includes('coding')} />
+```
+
+
+#### Validation examples
+
+Here's an example of validating a single checkbox with Formik, using a
+[`validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
+function and the [`<Formik>`](https://jaredpalmer.com/formik/docs/api/formik) and
+[`<Form>`](https://jaredpalmer.com/formik/docs/api/form) components:
+
+```js
+function validate(values) {
+  const errors = {};
+  if (!values.interest.includes('coding')) {
+    errors.interest = 'You must be interested in coding!';
+  }
+  return errors;
+}
+```
+
+```jsx
+<Formik initialValues={{ interest: [] }} validate={validate}>
+  {({ values, errors, handleChange, handleBlur }) => (
+    <Form>
+      <input type="checkbox"
+             name="interest"
+             value="coding"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             checked={values.interest.includes('coding')} />
+      {errors.interest}
+    </Form>
+  )}
+</Formik>
+```
+
+or using [`validationSchema`](https://jaredpalmer.com/formik/docs/api/formik#validationschema-schema-schema) with
+[Yup](https://github.com/jquense/yup):
+
+```js
+const validationSchema = yup.object().shape({
+  interest: yup.array().test(
+    'coding-interest',
+    'You must be interested in coding!',
+    (value) => value.includes('coding')
+  )
+});
+```
+
+```jsx
+<Formik initialValues={{ interest: [] }} validationSchema={validationSchema}>
+  ...
 ```
 
 
