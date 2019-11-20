@@ -15,6 +15,7 @@
       - [Checkbox usage with Formik](#checkbox-usage-with-formik)
       - [Validation examples](#validation-examples)
       - [Simplification using `<Field>`](#simplification-using-field)
+      - [CheckboxGroup example](#checkboxgroup-example)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -294,6 +295,53 @@ const MyCheckbox = ({ name, value, onChange, onBlur, checked }) => (
 
 Note: passing `type="checkbox"` to `<Field>` is required.  If it's omitted, then Formik won't supply the `checked` prop
 to `<MyCheckbox>` (see [the docs](https://jaredpalmer.com/formik/docs/api/useField#fieldinputprops)).
+
+
+#### CheckboxGroup example
+
+Using the `<MyCheckbox>` component defined above, here's an example of two CheckboxGroups, with validation being
+performed at the CheckboxGroup level using
+[`validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any):
+
+```js
+function validate(values) {
+  const errors = {};
+  if (values.interest.length < 2) {
+    errors.interest = 'You must select at least 2 interests';
+  }
+  const totalColours = values.red.length
+                     + values.green.length
+                     + values.blue.length;
+  if (totalColours < 2) {
+    errors.colours = 'You must select at least 2 colours';
+  }
+  return errors;
+}
+```
+
+```jsx
+<Formik
+  initialValues={{ interest: [], red: [], green: [], blue: [], colours: null }}
+  validate={validate}
+>
+  {({ errors }) => (
+    <Form>
+      <div id="checkboxgroup-interests">
+        <Field as={MyCheckbox} type="checkbox" name="interest" value="coding" />
+        <Field as={MyCheckbox} type="checkbox" name="interest" value="music" />
+        <Field as={MyCheckbox} type="checkbox" name="interest" value="astronomy" />
+        {errors.interest}
+      </div>
+      <div id="checkboxgroup-colours">
+        <Field as={MyCheckbox} type="checkbox" name="red"   value="yes" />
+        <Field as={MyCheckbox} type="checkbox" name="green" value="yes" />
+        <Field as={MyCheckbox} type="checkbox" name="blue"  value="yes" />
+        {errors.colours}
+      </div>
+    </Form>
+  )}
+</Formik>
+```
 
 
 # Drawbacks
