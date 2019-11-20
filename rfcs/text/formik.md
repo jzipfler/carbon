@@ -12,6 +12,7 @@
   - [Code examples](#code-examples)
     - [Checkbox and CheckboxGroup](#checkbox-and-checkboxgroup)
       - [HTML and React](#html-and-react)
+      - [Checkbox usage with Formik](#checkbox-usage-with-formik)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -175,6 +176,39 @@ The [`onChange`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHan
 and [`onBlur`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onblur) event handlers receive a
 React [`SyntheticEvent`](https://reactjs.org/docs/events.html) object `e`, and the `name` `value` `checked` attributes
 are available on `e.target`.
+
+
+#### Checkbox usage with Formik
+
+When a checkbox's `onChange` prop is connected to Formik's
+[`handleChange`](https://jaredpalmer.com/formik/docs/api/formik#handlechange-e-reactchangeevent-any-void)
+handler, it'll store the checkbox's state in Formik's
+[`values`](https://jaredpalmer.com/formik/docs/api/formik#values-field-string-any) as an **array** of checked values
+(regardless of whether there's one or multiple checkboxes with the same `name`).  For example, in uncontrolled mode:
+
+```jsx
+{/* If unchecked, `values.interest` will be []         */}
+{/* If checked,   `values.interest` will be ['coding'] */}
+<input type="checkbox" name="interest" value="coding" onChange={handleChange} />
+```
+
+```jsx
+{/* If neither is checked, `values.interest` will be []                  */}
+{/* If the 1st is checked, `values.interest` will be ['coding']          */}
+{/* If both are checked,   `values.interest` will be ['coding', 'music'] */}
+<input type="checkbox" name="interest" value="coding" onChange={handleChange} />
+<input type="checkbox" name="interest" value="music"  onChange={handleChange} />
+```
+
+To implement controlled mode, the `checked` prop must be set according to the `values.interest` array:
+
+```jsx
+<input type="checkbox"
+       name="interest"
+       value="coding"
+       onChange={handleChange}
+       checked={values.interest.includes('coding')} />
+```
 
 
 # Drawbacks
