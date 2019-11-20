@@ -14,6 +14,7 @@
       - [HTML and React](#html-and-react)
       - [Checkbox usage with Formik](#checkbox-usage-with-formik)
       - [Validation examples](#validation-examples)
+      - [Simplification using `<Field>`](#simplification-using-field)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -262,6 +263,37 @@ const validationSchema = yup.object().shape({
 <Formik initialValues={{ interest: [] }} validationSchema={validationSchema}>
   ...
 ```
+
+
+#### Simplification using `<Field>`
+
+To avoid having to manually wire up the `onChange` `onBlur` `checked` props to every checkbox instance, Formik's
+[`<Field>`](https://jaredpalmer.com/formik/docs/api/field) component can be used:
+
+```jsx
+// Props `name` `value` are simply passed through from the <Field> component.
+// Props `onChange` `onBlur` `checked` are injected automatically by Formik.
+const MyCheckbox = ({ name, value, onChange, onBlur, checked }) => (
+  <input type="checkbox"
+         name={name}
+         value={value}
+         onChange={onChange}
+         onBlur={onBlur}
+         checked={checked} />
+);
+
+<Formik initialValues={{ interest: [] }} validate={validate}>
+  {({ errors }) => (
+    <Form>
+      <Field as={MyCheckbox} type="checkbox" name="interest" value="coding" />
+      {errors.interest}
+    </Form>
+  )}
+</Formik>
+```
+
+Note: passing `type="checkbox"` to `<Field>` is required.  If it's omitted, then Formik won't supply the `checked` prop
+to `<MyCheckbox>` (see [the docs](https://jaredpalmer.com/formik/docs/api/useField#fieldinputprops)).
 
 
 # Drawbacks
