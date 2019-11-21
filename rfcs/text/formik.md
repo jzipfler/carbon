@@ -15,7 +15,8 @@
       - [Checkbox usage with Formik](#checkbox-usage-with-formik)
       - [Validation examples](#validation-examples)
       - [Simplification using `<Field>`](#simplification-using-field)
-      - [CheckboxGroup example](#checkboxgroup-example)
+      - [CheckboxGroup example: uncontrolled](#checkboxgroup-example-uncontrolled)
+      - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
 - [Drawbacks](#drawbacks)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
@@ -297,7 +298,7 @@ Note: passing `type="checkbox"` to `<Field>` is required.  If it's omitted, the
 to `<MyCheckbox>` (see [the docs](https://jaredpalmer.com/formik/docs/api/useField#fieldinputprops)).
 
 
-#### CheckboxGroup example
+#### CheckboxGroup example: uncontrolled
 
 Using the `<MyCheckbox>` component defined above, here's an example of two CheckboxGroups, with validation being
 performed at the CheckboxGroup level using
@@ -338,6 +339,50 @@ function validate(values) {
         <Field as={MyCheckbox} type="checkbox" name="blue"  value="yes" />
         {errors.colours}
       </div>
+    </Form>
+  )}
+</Formik>
+```
+
+
+#### CheckboxGroup example: controlled
+
+Here's an example of a controlled CheckboxGroup:
+
+* `<MyCheckboxGroup>` is controlled by a `value` prop, which contains an array of checked values.
+* Unlike the previous example, `type="checkbox"` is **not** passed to the `<Field>`
+  components, so Formik won't inject a controlling `checked` prop into `<MyCheckbox>` (see
+  [the docs](https://jaredpalmer.com/formik/docs/api/useField#fieldinputprops)).  Instead, `<MyCheckbox>`
+  receives its controlling `checked` prop from `<MyCheckboxGroup>` (see the usage of `React.Children.map`).
+
+```js
+function validate(values) {
+  const errors = {};
+  if (values.interest.length < 2) {
+    errors.interest = 'You must select at least 2 interests';
+  }
+  return errors;
+}
+```
+
+```jsx
+const MyCheckboxGroup = ({ value, children }) => (
+  <div>
+    {React.Children.map(children, (child) => React.cloneElement(child, {
+      checked: value.includes(child.props.value)
+    }))}
+  </div>
+);
+
+<Formik initialValues={{ interest: ['music'] }} validate={validate}>
+  {({ values, errors }) => (
+    <Form>
+      <MyCheckboxGroup value={values.interest}>
+        <Field as={MyCheckbox} name="interest" value="coding" />
+        <Field as={MyCheckbox} name="interest" value="music" />
+        <Field as={MyCheckbox} name="interest" value="astronomy" />
+      </MyCheckboxGroup>
+      {errors.interest}
     </Form>
   )}
 </Formik>
