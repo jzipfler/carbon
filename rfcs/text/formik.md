@@ -86,7 +86,7 @@ Carbon provides the following components:
 
 * [**`<Form>`**](src/__experimental__/components/form/form.component.js)  –  This augments an HTML
   [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) element with: a footer (containing "Save"
-  and "Cancel" buttons), form submission functionality, [CRSF](https://en.wikipedia.org/wiki/CRSF) functionality, a
+  and "Cancel" buttons), form submission functionality, [CSRF](https://en.wikipedia.org/wiki/CSRF) functionality, a
   [`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event) "unsaved" warning, etc.
 * [**`<FormField>`**](src/__experimental__/components/form-field/form-field.component.js)  –  This enables a
   [`<Label>`](src/__experimental__/components/label/label.component.js) and
