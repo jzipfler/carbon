@@ -125,6 +125,13 @@ Formik provides a small set of React components and hooks, of which the key ones
 * [**`useField()`**](https://jaredpalmer.com/formik/docs/api/useField)  –  A hook to help with building reusable input
   primitive components.
 
+**Note:** Formik is only intended to be used with
+[controlled components](https://reactjs.org/docs/forms.html#controlled-components), where the component's state is
+controlled by supplying a `value` prop (or a `checked` prop for `radio` and `checkbox`).  Technically it's possible to
+use Formik with [uncontrolled components](https://reactjs.org/docs/uncontrolled-components.html) (by not supplying a
+controlling `value`/`checked` prop, and only supplying `name` `onChange` `onBlur` props), but this is strongly
+discouraged :warning:
+
 
 ### Form validation using Formik
 
@@ -188,7 +195,8 @@ When a checkbox's `onChange` prop is connected to Formik's
 [`handleChange`](https://jaredpalmer.com/formik/docs/api/formik#handlechange-e-reactchangeevent-any-void)
 handler, it'll store the checkbox's state in Formik's
 [`values`](https://jaredpalmer.com/formik/docs/api/formik#values-field-string-any) as an **array** of checked values
-(regardless of whether there's one or multiple checkboxes with the same `name`).  For example, in uncontrolled mode:
+(regardless of whether there's one or multiple checkboxes with the same `name`).  For example, in uncontrolled mode
+(strongly discouraged :warning:):
 
 ```jsx
 {/* If unchecked, `values.interest` will be []         */}
@@ -302,7 +310,8 @@ to `<MyCheckbox>` (see [the docs](https://jaredpalmer.com/formik/docs/api/useFie
 
 Using the `<MyCheckbox>` component defined above, here's an example of two CheckboxGroups, with validation being
 performed at the CheckboxGroup level using
-[`validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any):
+[`validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any).  The
+CheckboxGroup itself is "uncontrolled" (it's simply a `<div>`).
 
 ```js
 function validate(values) {
