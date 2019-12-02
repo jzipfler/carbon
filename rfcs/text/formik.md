@@ -13,8 +13,9 @@
     - [Checkbox and CheckboxGroup](#checkbox-and-checkboxgroup)
       - [HTML and React](#html-and-react)
       - [Checkbox usage with Formik](#checkbox-usage-with-formik)
-      - [Validation examples](#validation-examples)
+      - [Form-level validation examples](#form-level-validation-examples)
       - [Simplification using `<Field>`](#simplification-using-field)
+      - [Field-level validation example](#field-level-validation-example)
       - [CheckboxGroup example: uncontrolled](#checkboxgroup-example-uncontrolled)
       - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
 - [Drawbacks](#drawbacks)
@@ -142,8 +143,13 @@ Formik supports three kinds of validation:
 2. [**Form-level: schema-based**](https://jaredpalmer.com/formik/docs/guides/validation#validationschema)  –  Performs
    validation using a [Yup](https://github.com/jquense/yup) schema.
 3. [**Field-level**](https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation)  –  Separate
-   `validate()` functions are supplied for each form field.
+   `validate()` functions are supplied for each form field.  This is the closest equivalent functionality of Carbon's
+   [`withValidation`](src/components/validations/with-validation.hoc.js) HOC which attaches validation functions to an
+   individual form field.
 
+**Note:** Although Formik currently supports
+[asynchronous validation](https://jaredpalmer.com/formik/docs/guides/validation), it's important to be aware that
+there's [an RFC for removing this functionality from Formik](https://github.com/jaredpalmer/formik/issues/1524).
 
 ## Code examples
 
@@ -223,11 +229,11 @@ To implement controlled mode, the `checked` prop must be set according to the `v
 ```
 
 
-#### Validation examples
+#### Form-level validation examples
 
 Here's an example of validating a single checkbox with Formik, using a
-[`validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
-function and the [`<Formik>`](https://jaredpalmer.com/formik/docs/api/formik) and
+[**form-level `validate` function**](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
+and the [`<Formik>`](https://jaredpalmer.com/formik/docs/api/formik) and
 [`<Form>`](https://jaredpalmer.com/formik/docs/api/form) components:
 
 ```js
@@ -256,8 +262,8 @@ function validate(values) {
 </Formik>
 ```
 
-or using [`validationSchema`](https://jaredpalmer.com/formik/docs/api/formik#validationschema-schema-schema) with
-[Yup](https://github.com/jquense/yup):
+or using **[`validationSchema`](https://jaredpalmer.com/formik/docs/api/formik#validationschema-schema-schema) with
+[Yup](https://github.com/jquense/yup)**:
 
 ```js
 const validationSchema = yup.object().shape({
@@ -304,6 +310,41 @@ const MyCheckbox = ({ name, value, onChange, onBlur, checked }) => (
 
 Note: passing `type="checkbox"` to `<Field>` is required.  If it's omitted, then Formik won't supply the `checked` prop
 to `<MyCheckbox>` (see [the docs](https://jaredpalmer.com/formik/docs/api/useField#fieldinputprops)).
+
+
+#### Field-level validation example
+
+Here's an example of validating a single checkbox, by passing a
+[**field-level `validate` function**](https://jaredpalmer.com/formik/docs/api/field#validate) to Formik's `<Field>`
+component, and using the `<MyCheckbox>` component defined above:
+
+```js
+function validate(interest) {
+  let error;
+  if (!interest.includes('coding')) {
+    error = 'You must be interested in coding!';
+  }
+  return error;
+}
+```
+
+```jsx
+<Formik initialValues={{ interest: [] }}>
+  {({ errors }) => (
+    <Form>
+      <Field as={MyCheckbox}
+             type="checkbox"
+             name="interest"
+             value="coding"
+             validate={validate} />
+      {errors.interest}
+    </Form>
+  )}
+</Formik>
+```
+
+This is very similar to Carbon's [`withValidation`](src/components/validations/with-validation.hoc.js) HOC, which
+attaches validation functions to an individual form field.
 
 
 #### CheckboxGroup example: uncontrolled
