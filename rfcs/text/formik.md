@@ -19,6 +19,7 @@
       - [CheckboxGroup example: uncontrolled](#checkboxgroup-example-uncontrolled)
       - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
 - [Drawbacks](#drawbacks)
+  - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-warning-or-info-validations)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
 - [How we teach this](#how-we-teach-this)
@@ -462,6 +463,30 @@ Some of the key disadvantages/risks of using a third-party library are:
   API.  We need to consider the future possibility that the Carbon project may want to provide new form-related
   functionality which Formik doesn't natively support, cannot be customised to support, and may never be able to
   support.
+
+
+## No support for non-blocking ("warning" or "info") validations
+
+Carbon's existing [`<Form>`](src/__experimental__/components/form/form.component.js) and
+[`withValidation`](src/components/validations/with-validation.hoc.js) components support three categories of validation:
+`error`, `warning` and `info`.  Form-submission will fail if any `error` validations fail (see
+[here](https://github.com/Sage/carbon/blob/v9.1.1/src/components/validations/form-with-validations.hoc.js#L53)), but
+`warning` and `info` validation failures do not block form-submission.
+
+But Formik doesn't support any validation categories other than `error`.  The
+[form-level `validate`](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
+and [field-level `validate`](https://jaredpalmer.com/formik/docs/api/field#validate) functions are only allowed to
+return an error message `string` (indicating validation failure) or `undefined` (indicating validation success) for each
+form field.  When the form is submitted, Formik
+[counts how many validation errors occurred](https://github.com/jaredpalmer/formik/blob/v2.0.6/src/Formik.tsx#L710), and
+[blocks the form-submission if this count is non-zero](https://github.com/jaredpalmer/formik/blob/v2.0.6/src/Formik.tsx#L731).  This
+functionality is hard-coded into Formik, with no public API available to customise this behaviour.
+
+In 2018, [a feature request for non-blocking validations](https://github.com/jaredpalmer/formik/issues/389) was
+submitted to Formik, but it has been closed.  [A PR was submitted](https://github.com/jaredpalmer/formik/pull/685),
+but it was closed without being merged.  The author of Formik
+[considered support for warnings for the release of v2](https://github.com/jaredpalmer/formik/issues/828#issue-350795228),
+but in the end, this didn't happen.
 
 
 # Alternatives
