@@ -18,6 +18,7 @@
       - [Field-level validation example](#field-level-validation-example)
       - [CheckboxGroup example: uncontrolled](#checkboxgroup-example-uncontrolled)
       - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
+    - [Blocking navigation on unsaved changes](#blocking-navigation-on-unsaved-changes)
 - [Drawbacks](#drawbacks)
   - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-warning-or-info-validations)
 - [Alternatives](#alternatives)
@@ -437,6 +438,105 @@ const MyCheckboxGroup = ({ value, children }) => (
     </Form>
   )}
 </Formik>
+```
+
+
+### Blocking navigation on unsaved changes
+
+[`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) fires a
+[`beforeunload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event)
+event when the user is about to navigate away from the current page.  By calling
+[`preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
+on the event, an application can prompt the user for confirmation, allowing the user to cancel the navigation
+action (eg: if the current page has unsaved changes, which would be lost if the user navigates away).
+
+But [SPAs](https://en.wikipedia.org/wiki/Single-page_application) use the
+[`History`](https://developer.mozilla.org/en-US/docs/Web/API/History) and
+[`Location`](https://developer.mozilla.org/en-US/docs/Web/API/Location) Web APIs (often via the
+[`history`](https://www.npmjs.com/package/history) NPM package) to perform client-side manipulation
+of the browser's history and location (instead of loading new HTML pages from the server),
+and so the `beforeunload` event is never fired.
+
+The example below shows how to wire up Formik's [`dirty`](https://jaredpalmer.com/formik/docs/api/formik#dirty-boolean)
+state to [React Router](https://reacttraining.com/react-router/) via
+[`history.block()`](https://github.com/ReactTraining/history/blob/v4.10.1/docs/Blocking.md),
+to prompt the user for confirmation before navigating away from
+a dirty form (with unsaved changes) in a React Router based SPA:
+
+```jsx
+import React from 'react';
+import { render } from 'react-dom';
+import { createBrowserHistory } from 'history';
+import { Router, Switch, Route, Link } from 'react-router-dom';
+import { Formik, Form, Field, useFormikContext } from 'formik';
+
+/** @see https://github.com/ReactTraining/react-router/blob/v5.1.2/packages/react-router/docs/api/Router.md */
+/** @see https://github.com/ReactTraining/history/blob/v4.10.1/docs/GettingStarted.md */
+const history = createBrowserHistory();
+
+const initialValues = { firstName: 'Joe', lastName: 'Bloggs', email: 'joe.bloggs@example.com' };
+
+function BlockNavigationIfDirty() {
+
+  /** @see https://jaredpalmer.com/formik/docs/api/useFormikContext */
+  /** @see https://jaredpalmer.com/formik/docs/api/formik#dirty-boolean */
+  const { dirty } = useFormikContext();
+
+  const isFormDirtyRef = React.useRef();
+
+  isFormDirtyRef.current = dirty;
+
+  React.useEffect(() => {
+
+    /** @see https://github.com/ReactTraining/history/blob/v4.10.1/docs/Blocking.md */
+    const unblockHistory = history.block(() => (
+      isFormDirtyRef.current ?
+      'Are you sure you want to leave this page? Unsaved changes will be lost!' :
+      null
+    ));
+
+    const effectCleanup = unblockHistory;
+
+    /** @see https://reactjs.org/docs/hooks-reference.html#cleaning-up-an-effect */
+    return effectCleanup;
+
+  }, []);
+
+  return null;  // This functional component doesn't need to render anything.
+
+}
+
+const Home = () => (
+  <Formik initialValues={initialValues} onSubmit={() => null}>
+    <Form>
+      <BlockNavigationIfDirty />
+      <Field type='text' name='firstName' />
+      <Field type='text' name='lastName' />
+      <Field type='email' name='email' />
+    </Form>
+  </Formik>
+);
+
+const About = () => (
+  <h2>About</h2>
+);
+
+const App = () => (
+  <Router history={history}>
+    <div>
+      <ul>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/about'>About</Link></li>
+      </ul>
+      <Switch>
+        <Route path='/about'><About /></Route>
+        <Route path='/'><Home /></Route>
+      </Switch>
+    </div>
+  </Router>
+);
+
+render(<App />, document.getElementById('root'));
 ```
 
 
