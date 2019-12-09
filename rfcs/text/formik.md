@@ -594,7 +594,7 @@ but in the end, this didn't happen.
 
 There are a number of alternative packages available to developers looking for a solution to web forms and validation. It is our intention to provide an API that affords developers the flexibility to choose whatever solution they want to and integrate their choice with Carbon's Form and input components. 
 
-The alteranative to integrating Formik is to continue to maintain the current implementaion of Form and Validations in Carbon. We would then continue to add additional functionality to meet any new requirements that may arise. This currently already adds a significant overhead to the team any will only grow as new functionality is implemented. A further issue is that it will continue to cause vendor lock-in, forcing consumers to use what is provided by Carbon out-of-the-box, and may hurt its adoption as a result.
+The alternative to integrating Formik is to continue to maintain the current implementation of Form and Validations in Carbon. We would then continue to add additional functionality to meet any new requirements that may arise. This currently already adds a significant overhead to the team any will only grow as new functionality is implemented. A further issue is that it will continue to cause vendor lock-in, forcing consumers to use what is provided by Carbon out-of-the-box, and may hurt its adoption as a result.
 
 <!-- What other designs have been considered? What is the impact of not doing this? -->
 
