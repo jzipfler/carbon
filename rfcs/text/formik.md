@@ -21,7 +21,7 @@
       - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
     - [Blocking navigation on unsaved changes](#blocking-navigation-on-unsaved-changes)
 - [Drawbacks](#drawbacks)
-  - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-%22warning%22-or-%22info%22-validations)
+  - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-warning-or-info-validations)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
 - [How we teach this](#how-we-teach-this)
