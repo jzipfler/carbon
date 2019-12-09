@@ -3,6 +3,7 @@
 
 # Table of contents
 
+- [Table of contents](#table-of-contents)
 - [Summary](#summary)
 - [Motivation](#motivation)
 - [Detailed design](#detailed-design)
@@ -20,7 +21,7 @@
       - [CheckboxGroup example: controlled](#checkboxgroup-example-controlled)
     - [Blocking navigation on unsaved changes](#blocking-navigation-on-unsaved-changes)
 - [Drawbacks](#drawbacks)
-  - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-warning-or-info-validations)
+  - [No support for non-blocking ("warning" or "info") validations](#no-support-for-non-blocking-%22warning%22-or-%22info%22-validations)
 - [Alternatives](#alternatives)
 - [Adoption strategy](#adoption-strategy)
 - [How we teach this](#how-we-teach-this)
@@ -590,6 +591,10 @@ but in the end, this didn't happen.
 
 
 # Alternatives
+
+There are a number of alternative packages available to developers looking for a solution to web forms and validation. It is our intention to provide an API that affords developers the flexibility to choose whatever solution they want to and integrate their choice with Carbon's Form and input components. 
+
+The alteranative to integrating Formik is to continue to maintain the current implementaion of Form and Validations in Carbon. We would then continue to add additional functionality to meet any new requirements that may arise. This currently already adds a significant overhead to the team any will only grow as new functionality is implemented. A further issue is that it will continue to cause vendor lock-in, forcing consumers to use what is provided by Carbon out-of-the-box, and may hurt its adoption as a result.
 
 <!-- What other designs have been considered? What is the impact of not doing this? -->
 
