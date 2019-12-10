@@ -589,6 +589,87 @@ but it was closed without being merged.  The author of Formik
 [considered support for warnings for the release of v2](https://github.com/jaredpalmer/formik/issues/828#issue-350795228),
 but in the end, this didn't happen.
 
+The example below demonstrates an alternative approach, integrating [Yup](https://github.com/jquense/yup) (for
+non-blocking "warning" and "info" validations) with Formik:
+
+```jsx
+import React from 'react';
+import { render } from 'react-dom';
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+
+const shapes = [
+  'sphere', 'tetrahedron', 'cube', 'octahedron', 'dodecahedron', 'icosahedron', 'tesseract'
+];
+
+/** @see https://github.com/jquense/yup/blob/v0.27.0/README.md#mixedtestoptions-object-schema */
+const schemaShapeWarning = yup.string().test({
+  test: (shape) => (!['tetrahedron', 'dodecahedron'].includes(shape)),
+  message: 'Choosing a ${value} is not recommended! But form submission is allowed.'
+});
+
+const schemaShapeInfo = yup.string().test({
+  test: (shape) => (!['octahedron', 'icosahedron'].includes(shape)),
+  message: "You've chosen an ${value}. That's a nice shape. Form submission is allowed."
+});
+
+const App = () => {
+
+  const [shapeInfo,    setShapeInfo]    = React.useState(null);
+  const [shapeWarning, setShapeWarning] = React.useState(null);
+
+  /** @see https://jaredpalmer.com/formik/docs/api/field#validate */
+  const validateShape = (shape) => {
+
+    setShapeInfo(null);
+    setShapeWarning(null);
+
+    // Error (blocking) validation:
+    if (['cube', 'tesseract'].includes(shape)) {
+      return `You cannot choose a ${shape}! Form submission is blocked!`;
+    }
+
+    // Warning (non-blocking) validation:
+    try {
+      /** @see https://github.com/jquense/yup/blob/v0.27.0/README.md#mixedvalidatesyncvalue-any-options-object-any */
+      schemaShapeWarning.validateSync(shape);
+    } catch (err) {
+      setShapeWarning(err.message);
+    }
+
+    // Info (non-blocking) validation:
+    try {
+      schemaShapeInfo.validateSync(shape);
+    } catch (err) {
+      setShapeInfo(err.message);
+    }
+
+  };
+
+  return (
+    <Formik
+      initialValues={{ shape: 'sphere' }}
+      onSubmit={() => window.alert('Submitting')}
+    >
+      {({ errors }) => (
+        <Form>
+          <Field as="select" name="shape" validate={validateShape}>
+            {shapes.map((shape) => (<option value={shape} key={shape}>{shape}</option>))}
+          </Field>
+          <div style={{ color: 'red'    }}>{errors.shape}</div>
+          <div style={{ color: 'orange' }}>{shapeWarning}</div>
+          <div style={{ color: 'blue'   }}>{shapeInfo}</div>
+          <input type="submit" />
+        </Form>
+      )}
+    </Formik>
+  );
+
+};
+
+render(<App />, document.getElementById('root'));
+```
+
 
 # Alternatives
 
