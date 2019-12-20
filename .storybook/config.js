@@ -7,6 +7,7 @@ import getThemeDecorator from './theme-decorators';
 import setupI18n from '../demo/i18n/config';
 import '../demo/i18n/en';
 import './style/story-root.scss';
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
@@ -19,13 +20,13 @@ addParameters({
     panelPosition: 'bottom',
     showNav: true,
     showPanel: true,
-    theme: sageTheme
-  },
+    theme: sageTheme,
+  }
 });
 
 setupI18n();
 
-const req = require.context('../src', true, /\.stories\.js$/);
+const req = require.context('../src', true, /\.stories\.(js|mdx)$/);
 const infoOptions = {
   header: false,
   inline: true
@@ -34,6 +35,13 @@ const infoOptions = {
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
+
+addParameters({
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  },
+});
 
 addDecorator(withKnobs);
 addDecorator(withInfo(infoOptions));
