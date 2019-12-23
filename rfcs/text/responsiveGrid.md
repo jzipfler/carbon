@@ -33,7 +33,7 @@ For full details of the proposal, read the [Sage Design System Grid](http://desi
 To avoid introducing a breaking change, and to give developers the freedom to choose whether or not to use the component, a new `Grid` Component will be developed, that can be used at the same level as the `<AppWrapper />`, as a grid wrapper for components. 
 The `<GridLayout />` will supply props to define breakpoints and number of columns, and will be styled using CSS Grid Layout.
 
-Code example
+Code example:
 ```
   import AppWrapper from 'carbon-react/lib/components/app-wrapper';
   import { GridLayout, GridRow, GridColumn }  from 'carbon-react/lib/components/grid';
