@@ -2,7 +2,7 @@
 
 # Summary
 
-A responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation. We, the Carbon team would like to implement the grid system designed by Sage UI designers.
+A responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation. We, the Carbon team, would like to implement the grid system designed by Sage UI designers.
 
 # Basic example
 
