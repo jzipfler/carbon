@@ -128,7 +128,7 @@ Including a CSS framework in Carbon (a library built with [Styled Components](ht
 2. Bloated codebase that attempts to solve compatibility and support issues we don't need.
 3. More complex markup.
 
-Although a CSS framework would come with some advantages comprehensive documentation, community support and potentially quicker development speeds they have been rejected in favour of the CSS Grid.
+Although a CSS framework would come with some advantages (comprehensive documentation, community support and potentially quicker development speeds), the Carbon team has concluded that the disadvantages outweigh these advantages.
 
 # Adoption strategy
 
