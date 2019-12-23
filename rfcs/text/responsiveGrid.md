@@ -98,7 +98,7 @@ Example:
 Considering that a grid layout is created to serve the same content on different-width viewports, it comes with a few disadvantages:
 
 1. Development time. It requires more work from the designer and developer (compared to the equivalent single-width design), although familiarity will increase the turn-around speed.
-2. Page load speed. All the data is served to all view ports, regardless of how much real estate you have available and how much content is actually displayed.
+2. Page load speed. All the data is served to all viewports, regardless of how much real estate is available and how much content is actually displayed.
 3. Accessibility. Grid position of a component may be different to the DOM order causing flow and context discrepancies when using screen readers, and users who navigate with a keyboard may experience unexpected sequences when tabbing through components. The recommendation is that grid ordering and placement is used for only for visual, not logical, reordering of content. 
 
 For an explanation of what this means in practice, see the [Mozilla CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_Layout_and_Accessibility#Visual_not_logical_re-ordering).
