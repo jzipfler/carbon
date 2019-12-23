@@ -34,7 +34,7 @@ To avoid introducing a breaking change, and to give developers the freedom to ch
 The `<GridLayout />` will supply props to define breakpoints and number of columns, and will be styled using CSS Grid Layout.
 
 Code example:
-```
+```jsx
   import AppWrapper from 'carbon-react/lib/components/app-wrapper';
   import { GridLayout, GridRow, GridColumn }  from 'carbon-react/lib/components/grid';
   
