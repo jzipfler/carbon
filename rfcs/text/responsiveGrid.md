@@ -26,7 +26,7 @@ By dividing the available space into predictably-sized modules (both vertically 
 
 For maximum flexibility, the Design System responsive grid uses 12 equal-width columns. 12 is divisible into 12, 6, 4, 3, 2 or 1 equal-width columns, giving maximum possible flexibility for a layout.
 
-For full details of the proposal read the [Sage Design System Grid](http://designsystem.sage.com/foundations/grid/).
+For full details of the proposal, read the [Sage Design System Grid](http://designsystem.sage.com/foundations/grid/).
 
 
 
