@@ -24,7 +24,7 @@ A well designed grid layout will be:
 
 By dividing the available space into predictably-sized modules (both vertically and horizontally), complex layouts that don't have fixed dimensions can be controlled and components can be positioned allowing a clean separation of content and style. Once the underlying structure of a design is mapped, breakpoints can be used to control how each component responds at given widths.
 
-For maximum flexibility the Design System responsive grid uses 12 equal width columns. 12 is divisible into 12, 6, 4, 3, 2 or 1 even widths columns giving maximum possible flexibility for a layout.
+For maximum flexibility, the Design System responsive grid uses 12 equal-width columns. 12 is divisible into 12, 6, 4, 3, 2 or 1 equal-width columns, giving maximum possible flexibility for a layout.
 
 For full details of the proposal read the [Sage Design System Grid](http://designsystem.sage.com/foundations/grid/).
 
