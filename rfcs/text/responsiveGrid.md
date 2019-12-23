@@ -109,7 +109,7 @@ For an explanation of what this means in practice, see the [Mozilla CSS Grid Lay
 ## CSS Flexbox
 Flexbox is designed for layout in one dimension (either a row or a column). Although it does support wrapping, the second-dimension positioning of components cannot be controlled (since the components are just being pushed along a single axis until they wrap).
 
-Example
+Example:
 ```
 .parent {
   display: flex;
