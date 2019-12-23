@@ -95,7 +95,7 @@ Example:
 ```
 # Drawbacks
 
-When you consider that a grid layout is created to serve the same content on different view ports it comes with a few disadvantage:
+Considering that a grid layout is created to serve the same content on different-width viewports, it comes with a few disadvantages:
 
 1. Development time. It requires more work from the designer and developer than the equivalent single width design. Although this is true, familiarity will increase the turn around speed.
 2. Page load speed. All the data is served to all view ports, regardless of how much real estate you have available and how much content is actually displayed.
