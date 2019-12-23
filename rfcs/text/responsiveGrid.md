@@ -22,7 +22,7 @@ A well designed grid layout will be:
 
 # Detailed design
 
-By dividing the available space vertically and horizontally into predictably sized modules complex layouts that don't have fixed dimensions can be controlled and components can be positioned allowing a clean separation of content and style. Once the underlying structure of a design is mapped breakpoints can be used to control how each component responds at given widths. 
+By dividing the available space into predictably-sized modules (both vertically and horizontally), complex layouts that don't have fixed dimensions can be controlled and components can be positioned allowing a clean separation of content and style. Once the underlying structure of a design is mapped, breakpoints can be used to control how each component responds at given widths.
 
 For maximum flexibility the Design System responsive grid uses 12 equal width columns. 12 is divisible into 12, 6, 4, 3, 2 or 1 even widths columns giving maximum possible flexibility for a layout.
 
