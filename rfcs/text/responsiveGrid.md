@@ -62,7 +62,7 @@ import AppWrapper from 'carbon-react/lib/components/app-wrapper';
 ## CSS Grid Layout
 CSS Grid Layout is a truly two-dimensional grid, allowing us to specify dimensions of rows and columns, and control where we position components within the grid.
 
-Example
+Example:
 ```
 .parent {
   display: grid;
