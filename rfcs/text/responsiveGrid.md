@@ -123,7 +123,7 @@ Overlapping modules within a Flexbox layout requires creative use of negative ma
 [Bootstrap](https://getbootstrap.com/)  
 [Foundation](https://foundation.zurb.com/)
 
-Including a framework in Carbon, a library that is built with Styled Components at it's heart, would require generating a special `StyledComponent` at a global level to enable CSS resets and base stylesheets, which may cause conflicts with Carbon's Base Theme. There would be other disadvantages too:
+Including a CSS framework in Carbon (a library built with [Styled Components](https://www.styled-components.com/) at its heart) would require generating a special `StyledComponent` at a global level to enable CSS resets and base stylesheets, which may cause conflicts with Carbon's Base Theme. There would be other disadvantages too:
 1. Difficulty in overriding the framework code.
 2. Bloated codebase that attempts to solve compatibility and support issues we don't need.
 3. More complex markup.
