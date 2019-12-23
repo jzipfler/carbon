@@ -1,5 +1,19 @@
 - Start Date: 2019-12-11
 
+# Table of contents
+
+- [Summary](#summary)
+- [Basic example](#basic-example)
+- [Motivation](#motivation)
+- [Detailed design](#detailed-design)
+  - [CSS Grid Layout](#css-grid-layout)
+- [Drawbacks](#drawbacks)
+- [Alternatives](#alternatives)
+  - [CSS Flexbox](#css-flexbox)
+  - [CSS Framework (Bootstrap or Foundation)](#css-framework-bootstrap-or-foundation)
+- [Adoption strategy](#adoption-strategy)
+- [How we teach this](#how-we-teach-this)
+
 # Summary
 
 A responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation. We, the Carbon team, would like to implement the grid system designed by Sage UI designers.
