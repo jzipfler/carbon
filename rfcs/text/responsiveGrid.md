@@ -18,7 +18,7 @@ The grid layout is intended to solve a number of problems that are often experie
 A well designed grid layout will be:
 1. Consistent, which helps users navigate and understand where information will be found.
 2. Responsive, which gives users a predictable experience across multiple devices with different screen sizes.
-3. Adaptable, when designs change over time new design themes can be introduced more quickly
+3. Adaptable, enabling new design themes to be introduced more quickly as designs evolve over time.
 
 # Detailed design
 
