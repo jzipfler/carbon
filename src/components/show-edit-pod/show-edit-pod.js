@@ -12,6 +12,7 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import { StyledPod, StyledButton, StyledLink } from './show-edit-pod.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import baseTheme from '../../style/themes/base';
 
 class ShowEditPod extends React.Component {
   state = {
@@ -248,6 +249,7 @@ ShowEditPod.defaultProps = {
   transitionName: 'carbon-show-edit-pod__transition',
   cancel: true,
   saving: false,
+  theme: baseTheme,
   validateOnMount: false
 };
 
