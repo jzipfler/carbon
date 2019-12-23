@@ -12,7 +12,7 @@ http://designsystem.sage.com/product/invoice/
 
 The grid layout is intended to solve a number of problems that are often experienced when developing complex web applications:
 1. CSS floats are not well suited to application layout.
-2. Layouts that use a combination of tables, javascript and floated elements are often brittle and can behave unexpectedly.
+2. Layouts that use a combination of tables, JavaScript and floated elements are often brittle and can behave unexpectedly.
 3. Fixed layouts that behave predictably cannot take advantage of the entire screen real estate.
 
 A well designed grid layout will be:
