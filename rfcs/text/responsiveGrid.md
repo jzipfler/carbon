@@ -135,4 +135,4 @@ Although a CSS framework would come with some advantages comprehensive documenta
 This is a new component and as such would not change the existing API, so it is not considered to be a breaking change. The new `<GridLayout />` can be used at a page level to wrap any group of components. See the detailed design above for a code example.
 
 # How we teach this
-Storybook and Fixures testbed examples should be developed alongside the new component demonstrating ways to implement the new layout.
+Storybook and Fixtures testbed examples should be developed alongside the new component, demonstrating ways to implement the new layout.
