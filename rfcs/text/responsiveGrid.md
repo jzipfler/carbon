@@ -35,7 +35,7 @@ The `<GridLayout />` will supply props to define breakpoints and number of colum
 
 Code example:
 ```jsx
-  import AppWrapper from 'carbon-react/lib/components/app-wrapper';
+import AppWrapper from 'carbon-react/lib/components/app-wrapper';
   import { GridLayout, GridRow, GridColumn }  from 'carbon-react/lib/components/grid';
   
   const Index = () => (
